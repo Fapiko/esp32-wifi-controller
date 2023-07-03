@@ -5,13 +5,13 @@
 
 class Menu {
 private:
-    Preferences preferences;
+	Preferences preferences;
 public:
-    Menu(const Preferences &preferences);
+	Menu(const Preferences &preferences);
 
-    void displayMenu();
+	void displayMenu();
 
-    void outputNetworkInfo();
+	void outputNetworkInfo();
 };
 
 #endif //ESP32_WIFI_CONTROLLER_MENU_H

@@ -1,29 +1,30 @@
 #include "WiFi.h"
+#include "serial.h"
 
 unsigned long lastWifiConnectAttempt;
 
 void attemptConnectWifi(const char *ssid, const char *password) {
-    if (WiFi.isConnected()) {
-        return;
-    }
+	if (WiFi.isConnected()) {
+		return;
+	}
 
-    Serial.println("Attempt wifi...");
+	serialWrapper.println("Attempt wifi...");
 
-    unsigned long time = millis();
+	unsigned long time = millis();
 
-    if (lastWifiConnectAttempt == 0 || lastWifiConnectAttempt + 5000 < time) {
-        WiFi.disconnect();
-        WiFi.begin(ssid, password);
+	if (lastWifiConnectAttempt == 0 || lastWifiConnectAttempt + 5000 < time) {
+		WiFi.disconnect();
+		WiFi.begin(ssid, password);
 
-        if (WiFi.isConnected()) {
-            Serial.print(F("Connected to "));
-            Serial.println(ssid);
-        } else {
-            Serial.print(F("Unable to connect to wifi network "));
-            Serial.print(ssid);
-            Serial.println(F(" attempting to reconnect in 5 seconds..."));
-        }
+		if (WiFi.isConnected()) {
+			serialWrapper.print(F("Connected to "));
+			serialWrapper.println(ssid);
+		} else {
+			serialWrapper.print(F("Unable to connect to wifi network "));
+			serialWrapper.print(ssid);
+			serialWrapper.println(F(" attempting to reconnect in 5 seconds..."));
+		}
 
-        lastWifiConnectAttempt = time;
-    }
+		lastWifiConnectAttempt = time;
+	}
 }
